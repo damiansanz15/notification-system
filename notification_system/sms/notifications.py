@@ -1,8 +1,10 @@
 import os
 from twilio.rest import Client
 from util import messages
+from dotenv import load_dotenv
 
 # Your Account SID and Auth Token from console.twilio.com
+load_dotenv()
 account_sid = os.getenv('ACCOUNT_SID')
 auth_token  = os.getenv('AUTH_TOKEN')
 source_phone_number  = os.getenv('SOURCE_PHONE_NUMBER')
