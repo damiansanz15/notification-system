@@ -3,11 +3,11 @@ import os
 import requests
 from twilio.twiml.messaging_response import MessagingResponse
 from PIL import Image
-import pytesseract
+#import pytesseract
 from jobs import load_data
 from dotenv import load_dotenv
 
-pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_INSTALLATION_PATH')
+#pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_INSTALLATION_PATH')
 load_dotenv()
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads' # Define a folder to store uploaded files
@@ -51,7 +51,7 @@ def get_guests():
 
 
 
-@app.route('/webhook', methods=['POST'])
+"""@app.route('/webhook', methods=['POST'])
 def webhook():
     print(request.form)
     sender = request.form.get('From')
@@ -99,7 +99,7 @@ def webhook():
             return respond('The file that you submitted is not a supported image type.')
     else:
         return respond('Please send an image!')
-
+"""
 
 def respond(message):
     response = MessagingResponse()
