@@ -92,7 +92,6 @@ def run_process():
     load_dotenv()
     #Read records from the database
     guests = database.get_all_guests()
-    print(type(guests))
     for guest in guests:
         print(guest)
     #Send notification
@@ -116,5 +115,5 @@ else:
 """
 #process_data(file_content)
 
-
-#run_process()
+if __name__ == "__main__":
+    run_process()

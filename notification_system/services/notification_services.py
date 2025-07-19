@@ -26,7 +26,7 @@ def guests():
     file = request.files['file']
 
     if file and file.filename.endswith('.csv'):
-        if not os.path.exists(app.config['CSV_FILES']):
+        if not os.path.exists(UPLOAD_FOLDER):
             original_umask = os.umask(0)
             os.makedirs(UPLOAD_FOLDER, mode=0o744)
             subprocess.call(['chmod', '-R', '+w', app.config['CSV_FILES']])
