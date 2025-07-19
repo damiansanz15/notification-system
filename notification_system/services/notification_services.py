@@ -6,6 +6,7 @@ from PIL import Image
 #import pytesseract
 from jobs import load_data
 from dotenv import load_dotenv
+from datetime import datetime
 
 #pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_INSTALLATION_PATH')
 load_dotenv()
@@ -24,7 +25,15 @@ def guests():
     file = request.files['file']
 
     if file and file.filename.endswith('.csv'):
-        filepath = os.path.join(app.config['CSV_FILES'], file.filename)
+        if not os.path.exists(app.config['CSV_FILES']):
+            os.makedirs(app.config['CSV_FILES'])
+
+
+        #datetime to concatenate
+        current_datetime = datetime.now()
+        formatted_datetime = current_datetime.strftime("%Y%m%d_%H%M%S")
+
+        filepath = os.path.join(app.config['CSV_FILES'], f"{formatted_datetime}_{file.filename}")
         file.save(filepath)
         #Call db
         file_content = load_data.read_file(filepath)
