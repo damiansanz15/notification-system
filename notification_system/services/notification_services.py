@@ -12,7 +12,7 @@ import subprocess
 #pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_INSTALLATION_PATH')
 load_dotenv()
 app = Flask(__name__)
-UPLOAD_FOLDER = 'uploads' # Define a folder to store uploaded files
+UPLOAD_FOLDER = os.getenv('UPLOADS_FOLDER') # Define a folder to store uploaded files
 app.config['CSV_FILES'] = UPLOAD_FOLDER
 account_sid = os.getenv('ACCOUNT_SID')
 auth_token  = os.getenv('AUTH_TOKEN')
@@ -28,7 +28,7 @@ def guests():
     if file and file.filename.endswith('.csv'):
         if not os.path.exists(app.config['CSV_FILES']):
             original_umask = os.umask(0)
-            os.makedirs('/GitRepo/notification-system/notification_system/services/uploads', mode=0o777)
+            os.makedirs(UPLOAD_FOLDER, mode=0o744)
             subprocess.call(['chmod', '-R', '+w', app.config['CSV_FILES']])
             os.umask(original_umask)
 
@@ -37,7 +37,7 @@ def guests():
         current_datetime = datetime.now()
         formatted_datetime = current_datetime.strftime("%Y%m%d_%H%M%S")
 
-        filepath = os.path.join(app.config['CSV_FILES'], f"{formatted_datetime}_{file.filename}")
+        filepath = os.path.join(UPLOAD_FOLDER, f"{formatted_datetime}_{file.filename}")
         file.save(filepath)
         #Call db
         file_content = load_data.read_file(filepath)
