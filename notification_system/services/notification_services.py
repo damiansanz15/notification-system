@@ -7,6 +7,7 @@ from PIL import Image
 from jobs import load_data
 from dotenv import load_dotenv
 from datetime import datetime
+import subprocess
 
 #pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_INSTALLATION_PATH')
 load_dotenv()
@@ -27,6 +28,7 @@ def guests():
     if file and file.filename.endswith('.csv'):
         if not os.path.exists(app.config['CSV_FILES']):
             os.makedirs(app.config['CSV_FILES'])
+            subprocess.call(['chmod', '-R', '+w', app.config['CSV_FILES']])
 
 
         #datetime to concatenate
