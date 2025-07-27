@@ -3,9 +3,13 @@ import logging
 from dotenv import load_dotenv
 
 load_dotenv()
-file_log_path = os.getenv('UNIX_LOG_FILE')
+file_log_path = os.getenv('UNIX_LOG_FILE_PATH')
 
 def getLogger(name='notification_app', log_level='DEBUG'):
+    if not os.path.exists(file_log_path):
+        with open(file_log_path, 'w') as f:
+            f.write("This is some content for the new file.\n")
+
     logger = logging.getLogger(name)
     logger.setLevel(log_level)
 
