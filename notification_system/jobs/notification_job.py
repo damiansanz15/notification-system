@@ -83,6 +83,6 @@ def run_supplement_process():
 
 if __name__ == "__main__":
     logger.info("Loading environment variables ...")
-    #run_regular_nofitication_process()
     load_dotenv()
-    run_supplement_process()
+    run_regular_nofitication_process()
+    #run_supplement_process()

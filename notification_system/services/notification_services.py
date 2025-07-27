@@ -56,8 +56,8 @@ def guests():
     if file and file.filename.endswith('.csv'):
         if not os.path.exists(UPLOAD_FOLDER):
             original_umask = os.umask(0)
-            os.makedirs(UPLOAD_FOLDER, mode=0o744)
-            subprocess.call(['chmod', '-R', '+w', app.config['CSV_FILES']])
+            os.makedirs(UPLOAD_FOLDER, mode=0o777)
+            subprocess.call(['chmod', '-R', '777', app.config['CSV_FILES']])
             os.umask(original_umask)
 
 
@@ -122,8 +122,8 @@ def webhook():#TODO This should reply only to guests, validate this in the table
             user_folder = UPLOAD_FOLDER+f'/{username}'
             if not os.path.exists(user_folder):
                 original_umask = os.umask(0)
-                os.makedirs(user_folder, mode=0o744)
-                subprocess.call(['chmod', '-R', '+w',user_folder])
+                os.makedirs(user_folder, mode=0o777)
+                subprocess.call(['chmod', '-R', '777',user_folder])
                 os.umask(original_umask)
 
 
@@ -131,7 +131,7 @@ def webhook():#TODO This should reply only to guests, validate this in the table
                 f.write(r.content)
 
 
-            process(user_folder, username, message, response)
+            process(user_folder+filename, username, message, response)
 
             return respond(response.message)
         else:
