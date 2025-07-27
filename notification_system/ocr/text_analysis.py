@@ -5,8 +5,8 @@ import os
 from dotenv import load_dotenv
 from util.custom_logger import getLogger
 
-pytesseract.pytesseract.tesseract_cmd = os.getenv('TESSERACT_INSTALLATION_PATH')
-os.environ['TESSDATA_PREFIX'] = r'C:\Program Files\Tesseract-OCR\tessdata'
+pytesseract.pytesseract.tesseract_cmd = os.getenv('UNIX_TESSERACT_INSTALLATION_PATH')
+#os.environ['TESSDATA_PREFIX'] = r'C:\Program Files\Tesseract-OCR\tessdata'
 load_dotenv()
 extracted_dates = []
 extracted_amounts = []
