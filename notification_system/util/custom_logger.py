@@ -1,7 +1,8 @@
+import os
 import logging
 
 
-file_log_path = r'C:\Cursos\Python\notification-system\notification_system\notification-system.log'
+file_log_path = os.getenv('UNIX_LOG_FILE')
 def getLogger(name='notification_app', log_level='DEBUG'):
     logger = logging.getLogger(name)
     logger.setLevel(log_level)
