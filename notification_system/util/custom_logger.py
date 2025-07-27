@@ -1,8 +1,10 @@
 import os
 import logging
+from dotenv import load_dotenv
 
-
+load_dotenv()
 file_log_path = os.getenv('UNIX_LOG_FILE')
+
 def getLogger(name='notification_app', log_level='DEBUG'):
     logger = logging.getLogger(name)
     logger.setLevel(log_level)
