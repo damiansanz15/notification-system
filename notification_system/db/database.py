@@ -328,6 +328,9 @@ def find_guest_by_wa_no(wa_number : str):
         c.execute(f"SELECT * FROM GUESTS where is_active='Y' and phone_number=? ",data)
         output = c.fetchall()#TODO change to fetch one
 
+        if output is None:
+            return None
+
 
         dikt = dict(output[0])
         logger.debug(f"Output {type(dikt)}")
