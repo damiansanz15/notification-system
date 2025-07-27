@@ -109,23 +109,29 @@ def webhook():#TODO This should reply only to guests, validate this in the table
         content_type = request.form.get("MediaContentType0")
           # remove the whatsapp: prefix from the number
         if content_type == 'image/jpeg':
-            filename = f'uploads/{username}/{formatted_datetime}.jpeg'
+            filename = f'/{formatted_datetime}.jpeg'
         elif content_type == 'image/png':
-            filename = f'uploads/{username}/{formatted_datetime}.png'
+            filename = f'/{formatted_datetime}.png'
         elif content_type == 'image/gif':
-            filename = f'uploads/{username}/{formatted_datetime}.gif'
+            filename = f'/{formatted_datetime}.gif'
         else:
             filename = None
 
 
         if filename:
-            if not os.path.exists(f'uploads/{username}'):
-                os.mkdir(f'uploads/{username}')
-            with open(filename, 'wb') as f:
+            user_folder = UPLOAD_FOLDER+f'/{username}'
+            if not os.path.exists(user_folder):
+                original_umask = os.umask(0)
+                os.makedirs(user_folder, mode=0o744)
+                subprocess.call(['chmod', '-R', '+w',user_folder])
+                os.umask(original_umask)
+
+
+            with open(user_folder+filename, 'wb') as f:
                 f.write(r.content)
 
 
-            process(filename, username, message, response)
+            process(user_folder, username, message, response)
 
             return respond(response.message)
         else:
