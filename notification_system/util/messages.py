@@ -21,3 +21,7 @@ def transform_date(payment_date):
     year = date.today().year
     readable_date = f"{day} de {months_names[month]} de {year}"
     return readable_date
+
+
+def generate_supplement_message():
+    pass
